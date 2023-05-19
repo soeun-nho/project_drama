@@ -9,7 +9,7 @@
   <body>
     <h1>리뷰 목록</h1>
     {% for post in posts %}
-    <h2><a href="{% url 'post_detail' post.id%}">{{post.title}} </a></h2>
+    <h2><a href="{% url 'post_detail' post.id %}">{{post.title}} </a></h2>
     <!--{{post.body}} {{post.date}}!-->
     <hr />
     {% endfor %}

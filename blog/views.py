@@ -22,11 +22,14 @@ def create(request):
 
 #read?
 def post_list(request):
-    posts = Post.objects.all().order_by('-created_at')
+    posts = Post.objects.all().order_by('-date')
     return render(request,"post_list.html",{'posts':posts})
 
-def post_detail(request):
-    post = get_object_or_404(Post, pk=id)
+def post_detail(request, id):
+    try :
+        post =Post.objects.get(Post, pk=id)
+    except Post.DoesNotExist :
+        return redirect('bloghome')
     context = {
         'post': post
     }

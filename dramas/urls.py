@@ -7,4 +7,5 @@ urlpatterns = [
     path('', views.home, name='home'),
     path('ranking/', include('ranking.urls')),
     path('blog/',include('blog.urls')),
+    path('ranking/', include('ranking.urls')),
 ] 

@@ -1,4 +1,4 @@
-{%load static%}
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -9,21 +9,21 @@
     />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>DRAMAPEDIA</title>
+    <title>드라마리뷰 사이트 홈</title>
     <!-- Favicon-->
     <link
       rel="icon"
       type="image/x-icon"
-      href="{% static 'assets/favicon.ico' %}"
+      href="{% static 'assets/favicon.ico'%}"
     />
     <!-- Core theme CSS (includes Bootstrap)-->
-    <link href="{% static 'css/styles.css' %} " rel="stylesheet" />
+    <link href="{% static 'css/styles.css' %}" rel="stylesheet" />
   </head>
   <body>
     <!-- Responsive navbar-->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
       <div class="container">
-        <a class="navbar-brand" href="#">Start Bootstrap</a>
+        <a class="navbar-brand" href="{% url 'home'}">Home</a>!-->
         <button
           class="navbar-toggler"
           type="button"
@@ -33,51 +33,88 @@
           aria-expanded="false"
           aria-label="Toggle navigation"
         >
-          <span class="navbar-toggler-icon"></span>
+          <span class="navbar-toggler-icon">.</span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
             <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="#">Home</a>
-            </li>
-            <li class="nav-item"><a class="nav-link" href="#">ranking</a></li>
-            <li class="nav-item dropdown">
               <a
-                class="nav-link dropdown-toggle"
-                id="navbarDropdown"
-                href="#"
-                role="button"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
-                >자세히보기</a
+                class="nav-link active"
+                aria-current="page"
+                href="{% url 'home'}"
               >
-              <ul
-                class="dropdown-menu dropdown-menu-end"
-                aria-labelledby="navbarDropdown"
-              >
-                <li>
-                  <a class="dropdown-item" href="{% url 'home'}">home</a>
-                </li>
-                <li>
-                  <a class="dropdown-item" href="{% url 'bloghome'}">블로그</a>
-                </li>
-                <li>
-                  <a class="dropdown-item" href="#">Something else here</a>
-                </li>
-              </ul>
+                드라마홈
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'ranking'}"> 랭킹 </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'blogHome'}"> 리뷰 쓰기 </a>
             </li>
           </ul>
         </div>
       </div>
     </nav>
-    <!-- Page content-->
-    <div class="container">
-      <div class="text-center mt-5">
-        <h1>A Bootstrap 5 Starter Template</h1>
-        <p class="lead">A complete project boilerplate built with Bootstrap</p>
-        <p>Bootstrap v5.2.3</p>
+    <!-- Header - set the background image for the header in the line below-->
+    <header
+      class="py-5 bg-image-full"
+      style="
+        background-image: url('https://source.unsplash.com/wfh8dDlNFOk/1600x900');
+      "
+    >
+      <div class="text-center my-5">
+        <img
+          class="img-fluid rounded-circle mb-4"
+          src="https://dummyimage.com/150x150/6c757d/dee2e6.jpg"
+          alt="..."
+        />
+        <h1 class="text-white fs-3 fw-bolder">Full Width Pics</h1>
+        <p class="text-white-50 mb-0">Landing Page Template</p>
       </div>
+    </header>
+    <!-- Content section-->
+    <section class="py-5">
+      <div class="container my-5">
+        <div class="row justify-content-center">
+          <div class="col-lg-6">
+            <h2>영화 소개</h2>
+            <p class="lead">영화 정보</p>
+            <p class="mb-0">영화 정보 2</p>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- Image element - set the background image for the header in the line below-->
+    <div
+      class="py-5 bg-image-full"
+      style="
+        background-image: url('https://source.unsplash.com/4ulffa6qoKA/1200x800');
+      "
+    >
+      <!-- Put anything you want here! The spacer below with inline CSS is just for demo purposes!-->
+      <div style="height: 20rem"></div>
     </div>
+    <!-- Content section-->
+    <section class="py-5">
+      <div class="container my-5">
+        <div class="row justify-content-center">
+          <div class="col-lg-6">
+            <h2>드라마 소개</h2>
+            <p class="lead">ㅇㅇㅇ</p>
+            <p class="mb-0">ㅇㅇㅇ</p>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- Footer-->
+    <footer class="py-5 bg-dark">
+      <div class="container">
+        <p class="m-0 text-center text-white">
+          Copyright &copy; Your Website 2023
+        </p>
+      </div>
+    </footer>
     <!-- Bootstrap core JS-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
     <!-- Core theme JS-->
