@@ -1,21 +1,19 @@
 from django.shortcuts import render,redirect,get_object_or_404
-from .forms import PostModelForm
-from .models import Post
-
-
+from .forms import PostModelForm, CommentForm
+from .models import Post,Comment
+from django.core.paginator import Paginator
 # Create your views here.
-# 세번째 인자 주목!
 
-def bloghome(request):
+def blogHome(request):
     return render(request, "blogIndex.html")
 
 #create
 def create(request):
-    if request.method =='POST':
+    if request.method =='POST' or request.method == 'FILES':
         form =PostModelForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('home')
+            return redirect('blogHome')
     else:
         form=PostModelForm()
     return render(request,"form_create.html", {'form': form})
@@ -23,22 +21,24 @@ def create(request):
 #read?
 def post_list(request):
     posts = Post.objects.all().order_by('-date')
+    paginator = Paginator(posts, 5)
+    pagnum = request.GET.get('page')
+    posts = paginator.get_page(pagnum)
     return render(request,"post_list.html",{'posts':posts})
 
 def post_detail(request, id):
-    try :
-        post =Post.objects.get(Post, pk=id)
-    except Post.DoesNotExist :
-        return redirect('bloghome')
-    context = {
-        'post': post
+    post = get_object_or_404(Post, pk=id)
+    comment_form = CommentForm()
+    context={ 
+        'post':post,
+        'comment_form' : comment_form
     }
-    return render(request,"post_detail.html", context)
+    return render(request, 'post_detail.html', context)
 
 def post_update(request,id):
     post = get_object_or_404(Post, pk=id)
-    if request.method=='POST':
-        form = PostModelForm(request.POST, instance=post)
+    if request.method=='POST' or request.method == 'FILES':
+        form = PostModelForm(request.POST, request.FILES, instance=post)
         if form.is_valid():
             form.save()
             return redirect('post_list')
@@ -51,3 +51,32 @@ def post_delete(request, id):
     post= Post.objects.get(pk=id)
     post.delete()
     return redirect('post_list')
+
+
+def create_comment(request, id):
+    filled_form = CommentForm(request.POST)
+
+    if filled_form.is_valid():        
+        finished_form = filled_form.save(commit=False)      
+        finished_form.article = get_object_or_404(Post, pk=id)        
+        finished_form.save()   
+    return redirect('post_detail', id)
+
+
+def update_comment(request, post_id, com_id):
+    my_com = Comment.objects.get(id=com_id)
+    comment_form = CommentForm(instance=my_com)
+    if request.method == "POST":
+        update_form = CommentForm(request.POST, instance=my_com)
+        if update_form.is_valid():
+            update_form.save()
+            return redirect('post_detail', post_id)
+    else:
+        return render(request, 'comment_update.html', {'comment_form' : comment_form})
+    
+
+def delete_comment(request, post_id, com_id):
+    my_com = Comment.objects.get(id=com_id)
+    my_com.delete()
+
+    return redirect('post_detail', post_id)

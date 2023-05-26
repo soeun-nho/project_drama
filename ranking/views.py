@@ -1,5 +1,5 @@
 from django.shortcuts import render
 
 # Create your views here.
-def ranking(request):
-    return render(request, "rankingHome.html")
+def rankingHome(request):
+    return render(request, "rankingIndex.html")
